@@ -7,11 +7,16 @@ function App() {
   const [format, setFormat] = useState('A4');
   const [landscape, setLandscape] = useState(false);
   const [scale, setScale] = useState(1);
+  const [left, setleft] = useState(undefined);
+  const [right, setRight] = useState(undefined);
+  const [top, setTop] = useState(undefined);
+  const [bottom, setBottom] = useState(undefined);
+  const [containerId, setContainerId] = useState(undefined);
 
-    const getPdf = () => {
+    const getPdf = (e) => {
+      e?.preventDefault()
       if (!value) return;
       const formData = new FormData();
-      console.log(format)
       formData.append('file', value);
       setLoading(true);
       fetch('https://html2pdf.extensive.digital/api/html-pdf/convert', {
@@ -19,7 +24,16 @@ function App() {
         headers: {
           'Content-Type': 'application/json', 
         },    
-        body: JSON.stringify({url: value, format, landscape, scale: Number(scale) }),
+        body: JSON.stringify({
+          url: value, 
+          format, landscape, 
+          scale: Number(scale),
+          left, 
+          right,
+          top,
+          bottom,
+          containerId
+        }),
       })
       .then(response => { setLoading(false); return response.blob(); })
       .then(blob => {
@@ -40,11 +54,48 @@ function App() {
     <div className="App flex w-full justify-center px-5">
       <div className='w-fit mt-[20%]'>
         <h1 className='md:text-[64px] xs:text-[46px] text-[32px] text-gray-700 font-bold text-center '>HTML to PDF Converter</h1>
-        <form className='md:mt-10 mt-5 w-full flex gap-2 items-center justify-center flex-col'>
+        <form
+        onSubmit={getPdf}
+        className='md:mt-10 mt-5 w-full flex gap-2 items-center justify-center flex-col'>
           <input 
           placeholder='Enter link'
           className='px-3 h-12 w-full border-slate-300 border rounded shadow'
           type='text' onChange={(e) => setValue(e?.target?.value)}/>
+          
+          <div className='flex justify-stretch gap-2 w-full flex-wrap'>
+            <input 
+            step={1}
+            min={0}
+            max={20}
+            placeholder='top'
+            className='px-3 h-12 flex-1 min-w-[200px] border-slate-300 border rounded shadow'
+            type='number' onChange={(e) => setTop(e?.target?.value)}/>
+            <input 
+            step={1}
+            min={0}
+            max={20}
+            placeholder='right'
+            className='px-3 h-12 flex-1 min-w-[200px] border-slate-300 border rounded shadow'
+            type='number' onChange={(e) => setRight(e?.target?.value)}/>
+            <input 
+            step={1}
+            min={0}
+            max={20}
+            placeholder='bottom'
+            className='px-3 h-12 flex-1 min-w-[200px] border-slate-300 border rounded shadow'
+            type='number' onChange={(e) => setBottom(e?.target?.value)}/>
+            <input 
+            step={1}
+            min={0}
+            max={20}
+            placeholder='left'
+            className='px-3 h-12 flex-1 min-w-[200px] border-slate-300 border rounded shadow'
+            type='number' onChange={(e) => setleft(e?.target?.value)}/>
+            <input 
+            placeholder='Html container id'
+            className='px-3 h-12 flex-1 min-w-[200px] border-slate-300 border rounded shadow'
+            type='text' onChange={(e) => setContainerId(e?.target?.value)}/>
+          </div>
           
           <div className='flex justify-stretch gap-2 w-full flex-wrap'>
             <input 
@@ -78,7 +129,7 @@ function App() {
               <option value={true}>Landscape</option>
             </select>
             <button
-            onClick={getPdf}
+            type='submit'
             disabled={loading}
             className='shadow text-nowrap flex-1 min-w-[200px] border-green-600 border rounded bg-green-600 h-12 px-3 text-white'>
               {loading ? "loading..." : "Get pdf"}

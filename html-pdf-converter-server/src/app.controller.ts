@@ -1,6 +1,5 @@
 import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { AppService } from './app.service';
-import * as fs from 'fs';
 import puppeteer from 'puppeteer';
 import { Response } from 'express';
 import { ApiProperty } from '@nestjs/swagger';
@@ -32,6 +31,37 @@ export class HtmlPdfConvertDto {
   @Max(2)
   @IsOptional()
   scale?: number
+  
+  @ApiProperty({
+    example: 10
+  })
+  @IsOptional()
+  bottom?: number
+
+  @ApiProperty({
+    example: "container"
+  })
+  @IsOptional()
+  containerId?: string
+
+  @ApiProperty({
+    example: 10
+  })
+
+  @IsOptional()
+  top?: number
+
+  @ApiProperty({
+    example: 10
+  })
+  @IsOptional()
+  left?: number
+  
+  @ApiProperty({
+    example: 10
+  })
+  @IsOptional()
+  right?: number
 }
 
 @Controller('api')
@@ -40,7 +70,17 @@ export class AppController {
 
   @Post('html-pdf/convert')
   async convertHtmlToPdf(
-      @Body() {url, format, landscape = false, scale}: HtmlPdfConvertDto, @Res() res: Response
+      @Body() {
+        url, 
+        format, 
+        landscape = false, 
+        scale, 
+        left, 
+        right, 
+        top, 
+        bottom,
+        containerId
+      }: HtmlPdfConvertDto, @Res() res: Response
   ) {
     try {
       const browser = await puppeteer.launch({
@@ -48,14 +88,44 @@ export class AppController {
         args: ['--no-sandbox', '--disable-setuid-sandbox', '--allow-file-access-from-files', '--enable-local-file-accesses']
       });
 
-      const page = await browser.newPage();
-      await page.goto(url, { waitUntil: 'networkidle0' });
+      if (!url.startsWith('http://') && !url.startsWith('http://'))
+        url = 'https://' + url
       
+      const page = await browser.newPage();
+      await page.goto(url, { waitUntil: 'networkidle0'});
+      
+      if (containerId) {
+        const { headHtml, contentHtml } = await page.evaluate((containerId) => {
+          const headHtml = document.head.innerHTML;
+          const contentElement = document.getElementById(containerId);
+          const contentHtml = contentElement ? contentElement.innerHTML : '<div>No content found</div>';
+          return { headHtml, contentHtml };
+        }, containerId);
+
+        const newHtmlContent = `
+          <!DOCTYPE html>
+          <html>
+            <head>${headHtml}</head>
+            <body>${contentHtml}</body>
+          </html>
+        `;
+        await page.setContent(newHtmlContent);
+      }
+
       const pdfBuffer = await page.pdf({
         printBackground: true , 
         format, width: 2000, 
         height: 4000, 
-        scale: Number(scale), waitForFonts: true, landscape  });
+        scale: Number(scale), 
+        waitForFonts: true, 
+        landscape,
+        margin: {
+          bottom: bottom ? Number(bottom) + 'mm' : undefined,
+          top: top ? Number(top) + 'mm' : undefined,
+          left: left ? Number(left) + 'mm': undefined,
+          right: right ? Number(right) + 'mm' : undefined
+        }
+      });
 
       await browser.close();
 
