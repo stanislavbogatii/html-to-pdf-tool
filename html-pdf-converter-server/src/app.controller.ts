@@ -9,7 +9,8 @@ export class AppController {
 
   @Post('html-pdf/convert')
   async convertHtmlToPdf(
-    @Body() htmlPdfConvertDto: HtmlPdfConvertDto, @Res() res: Response
+    @Body() htmlPdfConvertDto: HtmlPdfConvertDto, 
+    @Res() res: Response
   ) {
     try {
       const { pdfBuffer } = await this.appService.convertHtmlToPdf(htmlPdfConvertDto)

@@ -40,7 +40,7 @@ export class HtmlPdfConvertDto {
     required: false,
   })
   @IsOptional()
-  @Transform(({ value }) => parseInt(value, 10))
+  @Transform(({ value }) => parseInt(value, 5))
   bottom?: number;
 
   @ApiProperty({
@@ -55,7 +55,7 @@ export class HtmlPdfConvertDto {
     required: false,
   })
   @IsOptional()
-  @Transform(({ value }) => parseInt(value, 10))
+  @Transform(({ value }) => parseInt(value, 5))
   top?: number;
 
   @ApiProperty({
@@ -63,7 +63,7 @@ export class HtmlPdfConvertDto {
     required: false,
   })
   @IsOptional()
-  @Transform(({ value }) => parseInt(value, 10))
+  @Transform(({ value }) => parseInt(value, 5))
   left?: number;
 
   @ApiProperty({
@@ -71,6 +71,6 @@ export class HtmlPdfConvertDto {
     required: false,
   })
   @IsOptional()
-  @Transform(({ value }) => parseInt(value, 10))
+  @Transform(({ value }) => parseInt(value, 5))
   right?: number;
 }

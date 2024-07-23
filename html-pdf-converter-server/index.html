@@ -1,0 +1,970 @@
+<!DOCTYPE html><html lang="ro"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="3rP7IIF4eOygJQUKeGSW2nTfjR0eG98WIukcGVGS">
+
+    <title>Remax</title>
+    <meta name="description" content="Remax">
+
+    <link rel="preload" as="style" href="https://remax.totul.info/build/assets/app.9kx3olKa.css"><link rel="preload" as="style" href="https://remax.totul.info/build/assets/app.B0DPZmCw.css"><link rel="modulepreload" href="https://remax.totul.info/build/assets/app.CWHZjxuP.js"><link rel="modulepreload" href="https://remax.totul.info/build/assets/jquery.B9oof4Im.js"><link rel="stylesheet" href="https://remax.totul.info/build/assets/app.9kx3olKa.css"><link rel="stylesheet" href="https://remax.totul.info/build/assets/app.B0DPZmCw.css"><script type="module" src="https://remax.totul.info/build/assets/app.CWHZjxuP.js"></script>
+        <link rel="preload" as="image" href="/storage/images/welcome_search.png" imagesrcset="
+            /storage/images/welcome_search.png?w=200 200w,
+            /storage/images/welcome_search.png?w=400 400w,
+            /storage/images/welcome_search.png?w=600 600w,
+            /storage/images/welcome_search.png?w=800 800w,
+            /storage/images/welcome_search.png?w=1000 1000w,
+            /storage/images/welcome_search.png?w=1200 1200w,
+            /storage/images/welcome_search.png?w=1400 1400w" imagesizes="50vw">
+
+    <style>
+        .bg-gray-opacity {
+            background-color: rgba(0, 57, 102, 1);
+            padding: 2px;
+            width: 100%;
+            color: white;
+            box-sizing: border-box;
+            bottom: 0;
+            font-size: 0.875rem; /* Smaller text size */
+        }
+        .bg-gray-opacity i {
+            font-size: 0.65rem; /* Smaller icon size */
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+    <style>
+        .favorite-btn {
+            background: rgba(255, 255, 255, 0.3); /* Set background with opacity */
+            border: none; /* Remove border if needed */
+        }
+
+        .favorite-btn:hover {
+            background: rgba(255, 255, 255, 1); /* Full opacity on hover */
+        }
+
+        .favorite-btn i {
+            opacity: 1; /* Ensure the icon stays fully opaque */
+        }
+    </style>
+    <style>
+        .dropdown-menu.custom-dropdown {
+            width: auto; /* Allow the width to adjust according to content */
+            overflow: auto; /* Enable scrolling if content exceeds height */
+            padding: 5px;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        .nav-tabs {
+            display: flex;
+            flex-wrap: nowrap; /* Keep tabs in a single row */
+            border-bottom: none; /* Remove bottom border */
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+            overflow-y: hidden; /* Disable vertical scrolling */
+            height: auto; /* Adjust height to content */
+        }
+        .nav-tabs .nav-link {
+            white-space: nowrap;
+        }
+        .nav-tabs .nav-item {
+            flex-shrink: 0;
+        }
+        .nav-tabs .nav-link.active {
+            background-color: #e9ecef;
+        }
+        .tab-content {
+            margin-top: 10px;
+        }
+        .checkboxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 5px;
+            align-content: start; /* Align content to the start */
+            justify-content: start; /* Align items to the start horizontally */
+            align-items: start; /* Align items to the start vertically */
+        }
+        .custom-control {
+            display: flex;
+            align-items: flex-start;
+        }
+        .custom-control-input {
+            margin-top: 0.3rem; /* Adjust this value as needed */
+        }
+        .custom-control-label {
+            white-space: normal;
+        }
+        .row.mt-3 {
+            margin-top: 10px; /* Adjust margin as needed */
+            /*position: absolute;*/
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            padding: 0 10px; /* Add padding to match the dropdown padding */
+        }
+        /*.btn-sm {
+            max-height: 35px;
+            border-radius: 0.25rem !important;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }*/
+        @media (max-width: 625px) {
+            .nav-tabs {
+                display: none; /* Hide tabs on small screens */
+            }
+            .dropdown-select {
+                display: block; /* Show select dropdown on small screens */
+            }
+            .checkboxes {
+                display: block; /* Display checkboxes in a column */
+            }
+        }
+        @media (min-width: 626px) {
+            .dropdown-select {
+                display: none; /* Hide select dropdown on larger screens */
+            }
+        }
+    </style>
+    <style>
+        /* Add this style for the vertical line */
+        .vertical-line {
+            border-left: 1px solid #000; /* Black line */
+            height: 40px;
+        }
+
+        .mini-banner-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+    <link rel="preload" as="style" href="https://remax.totul.info/build/assets/properties_welcome.6_MRRgJk.css"><link rel="stylesheet" href="https://remax.totul.info/build/assets/properties_welcome.6_MRRgJk.css"><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_OZ-MYQb7CEa1fzoD_djpkfX5hc2Kg8c&amp;libraries=marker&amp;map_ids=22b8785cfe0ecbf2&amp;callback=initModalMap" async="" defer=""></script></head>
+<body>
+<div id="app">
+    <div class="container my-3 d-flex justify-content-between align-items-center flex-wrap" style="font-size: medium; color: #003da5">
+        <a href="https://remax.totul.info" class="navbar-brand">
+            <img rel="preload" src="/storage/images/logo.png" alt="AdminLTE Logo" width="70px" height="30px" class="brand-image elevation-0" style="width: 180px; height: 50px ;max-width: 90%" loading="lazy">
+        </a>
+
+        <div class="d-flex align-items-center flex-wrap">
+            <div class="nav-item mx-3">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-magnifying-glass"></i> Caută
+                </a>
+            </div>
+            <div class="vl"></div>
+            <div class="nav-item me-3">
+                                    <div class="d-flex flex-wrap">
+                                                    <div class="nav-item ms-3">
+                                <a class="nav-link" href="https://remax.totul.info/login">Autentificare</a>
+                            </div>
+                        
+                                                    <div class="nav-item ms-3">
+                                <a class="nav-link" href="https://remax.totul.info/register">Înregistrare</a>
+                            </div>
+                                            </div>
+                            </div>
+                        <div class="vl"></div>
+            <div class="nav-item dropdown mx-3">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre="">
+                    <i class="fa-solid fa-language"></i> Limbă
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="https://remax.totul.info/localization/ru">
+                            Rusă
+                        </a>
+                                            <a class="dropdown-item" href="https://remax.totul.info/localization/en">
+                            Engleză
+                        </a>
+                                            <a class="dropdown-item" href="https://remax.totul.info/localization/ro">
+                            Română
+                        </a>
+                                    </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-md navbar-light rounded-0" style="background-color: #003da5;">
+        <div class="container" style="min-height: 38px">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto">
+                                    </ul>
+                <ul class="nav justify-content-center"></ul>            </div>
+        </div>
+    </nav>
+
+    <main>
+        
+    <!-- property_modal.blade.php -->
+<div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="propertyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-90w">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn btn-secondary btn-return d-md-none mt-2 rounded-5" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-rotate-left"></i>Return</button>
+                <button type="button" class="btn-close d-none d-md-block" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="propertyModalContent">
+                    <!-- Content will be loaded via AJAX -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    /* Navbar */
+    .navbar-nav {
+        flex-wrap: nowrap;
+    }
+
+    .navbar-nav .nav-link {
+        white-space: nowrap;
+    }
+
+    .navbar {
+        background: #f8f9fa; /* Light background color */
+        border-radius: 5px; /* Rounded corners */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow for better visibility */
+        padding: 0.5rem 1rem; /* Adjust padding for better look */
+    }
+
+    .nav-item {
+        margin-right: 10px; /* Space between nav items */
+    }
+
+    .nav-item:last-child {
+        margin-right: 0;
+    }
+
+    /* Modal Styles */
+    .modal-90w {
+        max-width: 90%;
+    }
+    @media (min-width: 769px) {
+        .to_be_hidden {
+            display: block;
+        }
+        .carousel {
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .modal-body{
+            font-size: smaller;
+        }
+        .modal-90w {
+            max-width: 100%;
+            margin: 0 1rem;
+        }
+        .to_be_hidden {
+            display: none;
+        }
+        .carousel {
+            display: block;
+        }
+        .content-section{
+            overflow-y: visible !important;
+            max-height: none !important;
+        }
+        #modal_nav{
+            display: none;
+        }
+    }
+
+    .modal-dialog {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        margin: auto; /* Center the modal vertically */
+    }
+
+    .modal-content {
+        flex-grow: 1;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .modal-body {
+        flex-grow: 1;
+        overflow-y: auto;
+    }
+
+    /* Disable overflow for specific sections on small screens */
+    @media (max-width: 576px) {
+        .modal-dialog-centered {
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            margin: 0;
+        }
+        .to_be_hidden {
+            display: none;
+        }
+        .carousel {
+            display: block;
+        }
+        #modal_nav{
+            display: none;
+        }
+        .modal-content {
+            height: 100%;
+            overflow: hidden;
+            border-radius: 0; /* Remove rounded corners */
+            border: none; /* Remove border */
+        }
+        .modal-body {
+            padding: 1rem; /* Add padding */
+            max-height: calc(100% - 5px); /* Adjusting for header */
+            overflow-y: auto;
+            font-size: small;
+        }
+        .modal-header {
+            padding: 0.5rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1056; /* Above the modal content */
+            background: #fff; /* Ensure background color matches the modal */
+            border-bottom: 1px solid #dee2e6; /* Add a bottom border */
+        }
+        .modal-header .btn-return {
+            position: fixed;
+            top: 0.5rem;
+            left: 1rem;
+            z-index: 1057; /* Above the modal header */
+        }
+        .modal {
+            padding: 0; /* Remove default padding */
+        }
+        .modal-body {
+            padding-top: 3rem; /* Make space for fixed header */
+        }
+        /* Disable overflow for content sections */
+        .content-section {
+            overflow-y: visible !important;
+            max-height: none !important;
+        }
+    }
+
+    /* Custom CSS to set a higher z-index for LightGallery */
+    .lg-backdrop, .lg-outer {
+        z-index: 1055 !important;
+    }
+
+    /* Ensure all gallery images have a consistent size */
+    .lg-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .modal-open {
+        overflow: hidden;
+    }
+</style>
+
+    <div id="map"></div>
+
+    <div class="container-fluid rounded pb-2 x-container">
+        <div class="row justify-content-center align-items-center p-0 position-relative">
+            <div class="w-100 h-100 p-0">
+                <img style="min-height: 400px" class="w-100 h-100 object-fit-cover" src="/storage/images/welcome_search.png" srcset="
+            /storage/images/welcome_search.png?w=400 200w,
+            /storage/images/welcome_search.png?w=600 400w,
+            /storage/images/welcome_search.png?w=800 600w,
+            /storage/images/welcome_search.png?w=1000 800w,
+            /storage/images/welcome_search.png?w=1400 1000w,
+            /storage/images/welcome_search.png?w=2000 1200w,
+            /storage/images/welcome_search.png?w=2400 1400w
+        " sizes="(max-width: 600px) 200px,
+               (max-width: 768px) 400px,
+               (max-width: 992px) 600px,
+               (max-width: 1200px) 800px,
+               (max-width: 1400px) 1000px,
+               1400px" width="1400" height="800" alt="welcome_img">
+            </div>
+
+            <div class="col-md-8 col-12 position-absolute d-flex justify-content-center align-items-center" style="max-width: 1150px">
+                <form action="https://remax.totul.info/properties" method="GET" class="w-100">
+                    <div class="text-center my-4">
+                        <h1 class="text-white">Cea mai mare selecție de proprietăți în exclusivitate din Republica Moldova.</h1>
+                    </div>
+                    <div class="filter-section d-flex justify-content-center align-items-center flex-wrap flex-sm-nowrap">
+                        <div class="input-group d-flex w-auto align-items-center">
+                            <div class="w-auto me-2">
+                                <label class="mb-sm-0">
+                                    <select class="form-select h-100" name="is_for_rent" style="font-size: large; font-weight: lighter; height: 60px; min-width: 120px;">
+                                        <option value="0" selected="">Vânzare</option>
+                                        <option value="1">Chirie</option>
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div class="dropdown w-auto">
+                                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" aria-expanded="false" data-bs-toggle="dropdown" style="font-size: large; font-weight: lighter;">
+                                    Tip categorie
+                                </button>
+                                <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuButton">
+                                    <div class="container-fluid">
+                                        <nav class="nav nav-tabs" role="tablist">
+                                                                                            <a id="tab-5" href="#tab-pane-5" role="tab" data-bs-toggle="tab" class="nav-item nav-link active">
+                                                    Terenuri
+                                                </a>
+                                                                                            <a id="tab-6" href="#tab-pane-6" role="tab" data-bs-toggle="tab" class="nav-item nav-link ">
+                                                    Rezidențial
+                                                </a>
+                                                                                            <a id="tab-7" href="#tab-pane-7" role="tab" data-bs-toggle="tab" class="nav-item nav-link ">
+                                                    Comercial
+                                                </a>
+                                                                                    </nav>
+                                        <label for="categorySelect"></label><select id="categorySelect" class="form-select dropdown-select">
+                                                                                            <option value="5" selected="">Terenuri</option>
+                                                                                            <option value="6">Rezidențial</option>
+                                                                                            <option value="7">Comercial</option>
+                                                                                    </select>
+                                        <div class="tab-content">
+                                                                                            <div id="tab-pane-5" class="tab-pane fade show active" role="tabpanel">
+                                                    <div class="checkboxes">
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-16" class="custom-control-input me-1" name="property_type_ids[]" value="16">
+                                                                <label for="type-16" class="custom-control-label">Terenuri rezidențiale</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-17" class="custom-control-input me-1" name="property_type_ids[]" value="17">
+                                                                <label for="type-17" class="custom-control-label">Terenuri comerciale</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-18" class="custom-control-input me-1" name="property_type_ids[]" value="18">
+                                                                <label for="type-18" class="custom-control-label">Terenuri agricole</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-19" class="custom-control-input me-1" name="property_type_ids[]" value="19">
+                                                                <label for="type-19" class="custom-control-label">Terenuri industriale</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-20" class="custom-control-input me-1" name="property_type_ids[]" value="20">
+                                                                <label for="type-20" class="custom-control-label">Terenuri forestiere și recreare</label>
+                                                            </div>
+                                                                                                            </div>
+                                                </div>
+                                                                                            <div id="tab-pane-6" class="tab-pane fade " role="tabpanel">
+                                                    <div class="checkboxes">
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-1" class="custom-control-input me-1" name="property_type_ids[]" value="1">
+                                                                <label for="type-1" class="custom-control-label">Casă</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-2" class="custom-control-input me-1" name="property_type_ids[]" value="2">
+                                                                <label for="type-2" class="custom-control-label">Vile/Conace</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-3" class="custom-control-input me-1" name="property_type_ids[]" value="3">
+                                                                <label for="type-3" class="custom-control-label">Apartament</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-10" class="custom-control-input me-1" name="property_type_ids[]" value="10">
+                                                                <label for="type-10" class="custom-control-label">Garaj</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-11" class="custom-control-input me-1" name="property_type_ids[]" value="11">
+                                                                <label for="type-11" class="custom-control-label">Debara</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-13" class="custom-control-input me-1" name="property_type_ids[]" value="13">
+                                                                <label for="type-13" class="custom-control-label">Parcare</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-14" class="custom-control-input me-1" name="property_type_ids[]" value="14">
+                                                                <label for="type-14" class="custom-control-label">Duplex</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-15" class="custom-control-input me-1" name="property_type_ids[]" value="15">
+                                                                <label for="type-15" class="custom-control-label">Penthouse</label>
+                                                            </div>
+                                                                                                            </div>
+                                                </div>
+                                                                                            <div id="tab-pane-7" class="tab-pane fade " role="tabpanel">
+                                                    <div class="checkboxes">
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-21" class="custom-control-input me-1" name="property_type_ids[]" value="21">
+                                                                <label for="type-21" class="custom-control-label">Clădiri de birouri</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-22" class="custom-control-input me-1" name="property_type_ids[]" value="22">
+                                                                <label for="type-22" class="custom-control-label">Spații comerciale și retail</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-23" class="custom-control-input me-1" name="property_type_ids[]" value="23">
+                                                                <label for="type-23" class="custom-control-label">Depozite</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-24" class="custom-control-input me-1" name="property_type_ids[]" value="24">
+                                                                <label for="type-24" class="custom-control-label">Spații industriale</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-25" class="custom-control-input me-1" name="property_type_ids[]" value="25">
+                                                                <label for="type-25" class="custom-control-label">Spații hoteliere și ospitalitate</label>
+                                                            </div>
+                                                                                                                    <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="type-26" class="custom-control-input me-1" name="property_type_ids[]" value="26">
+                                                                <label for="type-26" class="custom-control-label">Spații medicale și de îngrijire</label>
+                                                            </div>
+                                                                                                            </div>
+                                                </div>
+                                                                                    </div>
+                                        <div class="row mt-3">
+                                            <div class="col-6 text-start">
+                                                <button type="button" class="btn btn-outline-secondary btn-sm" style="max-height: 35px;border-radius: 0.25rem !important;">Reset</button>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <button type="button" class="btn btn-primary btn-sm" style="background-color: #106cfc; color: white;max-height: 35px;border-radius: 0.25rem !important;">Apply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div class="vertical-line z-3"></div>
+
+                            <div class="w-auto">
+                                <div class="form-container mb-sm-0 flex-grow-1">
+                                    <label for="location-input" class="visually-hidden">Location</label>
+                                    <input type="text" class="form-control h-100" id="location-input" placeholder="Location" readonly="" style="height: 60px; font-size: large; font-weight: normal;">
+                                    <div class="dropdown-container" id="location-dropdown" style="font-size: larger;">
+                                        <div class="mb-3">
+                                            <label for="region-select" class="visually-hidden">Region</label>
+                                            <select class="form-select" id="region-select" name="region_id">
+                                                <option value="" selected="" disabled="">Raion</option>
+                                                                                                    <option value="2">Chișinău</option>
+                                                                                                    <option value="3">Hîncești District</option>
+                                                                                                    <option value="4">Iași County</option>
+                                                                                                    <option value="5">Ialoveni District</option>
+                                                                                                    <option value="6">Călărași District</option>
+                                                                                                    <option value="7">Anenii Noi</option>
+                                                                                                    <option value="8">Strășeni District</option>
+                                                                                                    <option value="9">Botoșani County</option>
+                                                                                                    <option value="10">Suceava County</option>
+                                                                                                    <option value="11">Sîngerei District</option>
+                                                                                                    <option value="12">Telenești District</option>
+                                                                                                    <option value="13">Telenești</option>
+                                                                                                    <option value="14">Orhei District</option>
+                                                                                                    <option value="15">Khyber Pakhtunkhwa</option>
+                                                                                                    <option value="16">Xinjiang</option>
+                                                                                                    <option value="17">Criuleni District</option>
+                                                                                                    <option value="18">Кишинев</option>
+                                                                                                    <option value="19">Яловенский район</option>
+                                                                                                    <option value="20">Raionul Orhei</option>
+                                                                                                    <option value="21">Odesa Oblast</option>
+                                                                                                    <option value="22">Bălți</option>
+                                                                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="city-select" class="visually-hidden">City</label>
+                                            <select class="form-select" id="city-select" name="city_id">
+                                                <option value="" selected="" disabled="">Oraș</option>
+                                                                                                    <option value="3">Chișinău</option>
+                                                                                                    <option value="4">Durleşti</option>
+                                                                                                    <option value="5">Bubuieci</option>
+                                                                                                    <option value="6">Dahnovici</option>
+                                                                                                    <option value="7">Miroslovești</option>
+                                                                                                    <option value="8">Piatra Albă</option>
+                                                                                                    <option value="9">Sipoteni</option>
+                                                                                                    <option value="10">Puhăceni</option>
+                                                                                                    <option value="11">Recea</option>
+                                                                                                    <option value="12">Ștefănești</option>
+                                                                                                    <option value="13">Valea Stânei</option>
+                                                                                                    <option value="14">Bilicenii Noi</option>
+                                                                                                    <option value="15">Sângerei</option>
+                                                                                                    <option value="16">Ciulucani</option>
+                                                                                                    <option value="17">Bănești</option>
+                                                                                                    <option value="18">Seliște</option>
+                                                                                                    <option value="19">Peresecina</option>
+                                                                                                    <option value="20">Lazo</option>
+                                                                                                    <option value="21">Wachobai</option>
+                                                                                                    <option value="22">Tacheng Prefecture</option>
+                                                                                                    <option value="23">Hîrtopul Mic</option>
+                                                                                                    <option value="24">Maximovca</option>
+                                                                                                    <option value="25">Dumbrava</option>
+                                                                                                    <option value="26">Călăraşi</option>
+                                                                                                    <option value="27">Codru</option>
+                                                                                                    <option value="28">Кишинёв</option>
+                                                                                                    <option value="29">Русештий Ной</option>
+                                                                                                    <option value="30">Peresecina</option>
+                                                                                                    <option value="31">Peresecina, OR</option>
+                                                                                                    <option value="32">Ghidighici</option>
+                                                                                                    <option value="33">Străşeni</option>
+                                                                                                    <option value="34">Sireți</option>
+                                                                                                    <option value="35">Krympul'ka</option>
+                                                                                                    <option value="36">Bălți</option>
+                                                                                                    <option value="37">Bahmut</option>
+                                                                                                    <option value="38">Chițcanii Noi</option>
+                                                                                            </select>
+                                        </div>
+                                        <div class="mb-3 d-none" id="sector-container">
+                                            <label for="sector-select" class="visually-hidden">Sector</label>
+                                            <select class="form-select" id="sector-select" name="sector_id">
+                                                <option value="" selected="" disabled="">Sector</option>
+                                                                                                    <option value="7">Sectorul Botanica</option>
+                                                                                                    <option value="8">Sectorul Ciocana</option>
+                                                                                                    <option value="11">Sculeni</option>
+                                                                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-danger w-auto h-100" style="font-size: larger; height: 60px; min-width: 60px;"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="container mt-5">
+            <img class="mini-banner-image" src="/storage/images/opportunity-banner.jpg" srcset="
+        /storage/images/opportunity-banner.jpg?w=400 200w,
+        /storage/images/opportunity-banner.jpg?w=600 400w,
+        /storage/images/opportunity-banner.jpg?w=800 600w,
+        /storage/images/opportunity-banner.jpg?w=1000 800w,
+        /storage/images/opportunity-banner.jpg?w=1400 1000w,
+        /storage/images/opportunity-banner.jpg?w=2000 1200w,
+        /storage/images/opportunity-banner.jpg?w=2400 1400w" sizes="(max-width: 600px) 200px,
+           (max-width: 768px) 400px,
+           (max-width: 992px) 600px,
+           (max-width: 1200px) 800px,
+           (max-width: 1400px) 1000px,
+           1400px" width="1400" height="800" alt="opportunity_img">
+        </div>
+
+
+
+        <div class="row justify-content-center mx-0 mt-5">
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 mb-4" style="min-width: 285px">
+                    <div class="card h-100 w-100 shadow-sm view-property-details d-flex flex-column" data-property-id="7" style="cursor: pointer;">
+                        <div class="position-relative">
+                            <img rel="preload" src="/storage/property_images/qNcxI8jxMqyW5P4itqqg8PL5lt5EBMVjKM8O8Ox6.jpg?w=400" srcset="/storage/property_images/qNcxI8jxMqyW5P4itqqg8PL5lt5EBMVjKM8O8Ox6.jpg?w=200 200w, /storage/property_images/qNcxI8jxMqyW5P4itqqg8PL5lt5EBMVjKM8O8Ox6.jpg?w=400 400w, /storage/property_images/qNcxI8jxMqyW5P4itqqg8PL5lt5EBMVjKM8O8Ox6.jpg?w=600 600w, /storage/property_images/qNcxI8jxMqyW5P4itqqg8PL5lt5EBMVjKM8O8Ox6.jpg?w=800 800w" sizes="(max-width: 600px) 200px,
+                                                (max-width: 768px) 400px,
+                                                (max-width: 992px) 600px,
+                                                (max-width: 1200px) 800px,
+                                                800px" width="250" height="200" class="card-img-top rounded-top" alt="" style="object-fit: cover; height: 200px;">
+                                                                                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">Hot_price</span>
+                                                                <div class="position-absolute bottom-0 start-0 m-2 bg-white text-dark p-1 rounded">
+                                    <span>111.000 €</span>
+                                    <small class="text-decoration-line-through">121.111 €</small>
+                                                                                                                                                                <small class="text-success ms-2">
+                                                <i class="fa-solid fa-arrow-down"></i> 8.35%
+                                            </small>
+                                                                                                            </div>
+                                                                                        <a class="favorite-btn position-absolute top-0 end-0 m-2 btn" href="https://remax.totul.info/login">
+                                    <i class="fa fa-regular fa-heart"></i>
+                                </a>
+                                                    </div>
+                        <div class="d-flex flex-column justify-content-between flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mt-2 px-2">
+                                <p class="card-text text-muted mb-0">Chișinău - Sculeni</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="/storage/MyImages/85vNlm9dtP8gLZDli80m4mzBl9bRfwrE50hmgVk0.jpg?w=50" class="rounded-circle me-2" alt="" style="width: 30px; height: 30px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="bg-gray-opacity px-2 py-2 mt-2 rounded-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="card-title mb-0">Apartament</small>
+                                    <div class="d-flex">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-house icon-placeholder"></i> <small>111</small> <small>m²</small>
+                                        </div>
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-bed icon-placeholder"></i> <small>5</small>
+                                        </div>
+                                        <div>
+                                            <i class="fa-solid fa-bath icon-placeholder"></i> <small>2</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 mb-4" style="min-width: 285px">
+                    <div class="card h-100 w-100 shadow-sm view-property-details d-flex flex-column" data-property-id="10" style="cursor: pointer;">
+                        <div class="position-relative">
+                            <img rel="preload" src="/storage/property_images/NZVRwQHASN8vO9Z08EJjtPIVoxYRelNsBfse8IkW.png?w=400" srcset="/storage/property_images/NZVRwQHASN8vO9Z08EJjtPIVoxYRelNsBfse8IkW.png?w=200 200w, /storage/property_images/NZVRwQHASN8vO9Z08EJjtPIVoxYRelNsBfse8IkW.png?w=400 400w, /storage/property_images/NZVRwQHASN8vO9Z08EJjtPIVoxYRelNsBfse8IkW.png?w=600 600w, /storage/property_images/NZVRwQHASN8vO9Z08EJjtPIVoxYRelNsBfse8IkW.png?w=800 800w" sizes="(max-width: 600px) 200px,
+                                                (max-width: 768px) 400px,
+                                                (max-width: 992px) 600px,
+                                                (max-width: 1200px) 800px,
+                                                800px" width="250" height="200" class="card-img-top rounded-top" alt="" style="object-fit: cover; height: 200px;">
+                                                                                        <a class="favorite-btn position-absolute top-0 end-0 m-2 btn" href="https://remax.totul.info/login">
+                                    <i class="fa fa-regular fa-heart"></i>
+                                </a>
+                                                    </div>
+                        <div class="d-flex flex-column justify-content-between flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mt-2 px-2">
+                                <p class="card-text text-muted mb-0">Chișinău - Sectorul Botanica</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="/storage/MyImages/85vNlm9dtP8gLZDli80m4mzBl9bRfwrE50hmgVk0.jpg?w=50" class="rounded-circle me-2" alt="" style="width: 30px; height: 30px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="bg-gray-opacity px-2 py-2 mt-2 rounded-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="card-title mb-0">Vile/Conace</small>
+                                    <div class="d-flex">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-house icon-placeholder"></i> <small><small>N/A</small></small> <small>m²</small>
+                                        </div>
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-bed icon-placeholder"></i> <small><small>N/A</small></small>
+                                        </div>
+                                        <div>
+                                            <i class="fa-solid fa-bath icon-placeholder"></i> <small><small>N/A</small></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 mb-4" style="min-width: 285px">
+                    <div class="card h-100 w-100 shadow-sm view-property-details d-flex flex-column" data-property-id="11" style="cursor: pointer;">
+                        <div class="position-relative">
+                            <img rel="preload" src="/storage/property_images/qN7rpsv7Pvnp7rWcH2KzoE3cXrxPZlovLotlP7PU.jpg?w=400" srcset="/storage/property_images/qN7rpsv7Pvnp7rWcH2KzoE3cXrxPZlovLotlP7PU.jpg?w=200 200w, /storage/property_images/qN7rpsv7Pvnp7rWcH2KzoE3cXrxPZlovLotlP7PU.jpg?w=400 400w, /storage/property_images/qN7rpsv7Pvnp7rWcH2KzoE3cXrxPZlovLotlP7PU.jpg?w=600 600w, /storage/property_images/qN7rpsv7Pvnp7rWcH2KzoE3cXrxPZlovLotlP7PU.jpg?w=800 800w" sizes="(max-width: 600px) 200px,
+                                                (max-width: 768px) 400px,
+                                                (max-width: 992px) 600px,
+                                                (max-width: 1200px) 800px,
+                                                800px" width="250" height="200" class="card-img-top rounded-top" alt="" style="object-fit: cover; height: 200px;">
+                                                                                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">Hot_price</span>
+                                                                <div class="position-absolute bottom-0 start-0 m-2 bg-white text-dark p-1 rounded">
+                                    <span>24.435 €</span>
+                                    <small class="text-decoration-line-through">22.924 €</small>
+                                                                                                                                                                <small class="text-danger ms-2">
+                                                <i class="fa-solid fa-arrow-up"></i> 6.59%
+                                            </small>
+                                                                                                            </div>
+                                                                                        <a class="favorite-btn position-absolute top-0 end-0 m-2 btn" href="https://remax.totul.info/login">
+                                    <i class="fa fa-regular fa-heart"></i>
+                                </a>
+                                                    </div>
+                        <div class="d-flex flex-column justify-content-between flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mt-2 px-2">
+                                <p class="card-text text-muted mb-0">Chișinău - Sectorul Botanica</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="/storage/MyImages/85vNlm9dtP8gLZDli80m4mzBl9bRfwrE50hmgVk0.jpg?w=50" class="rounded-circle me-2" alt="" style="width: 30px; height: 30px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="bg-gray-opacity px-2 py-2 mt-2 rounded-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="card-title mb-0">Casă</small>
+                                    <div class="d-flex">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-house icon-placeholder"></i> <small>120</small> <small>m²</small>
+                                        </div>
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-bed icon-placeholder"></i> <small>3</small>
+                                        </div>
+                                        <div>
+                                            <i class="fa-solid fa-bath icon-placeholder"></i> <small>2</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 mb-4" style="min-width: 285px">
+                    <div class="card h-100 w-100 shadow-sm view-property-details d-flex flex-column" data-property-id="13" style="cursor: pointer;">
+                        <div class="position-relative">
+                            <img rel="preload" src="/storage/property_images/9O92cEA5jAHQK3Mc9bKXIU6x6fHgiBdUkFeSjlKK.png?w=400" srcset="/storage/property_images/9O92cEA5jAHQK3Mc9bKXIU6x6fHgiBdUkFeSjlKK.png?w=200 200w, /storage/property_images/9O92cEA5jAHQK3Mc9bKXIU6x6fHgiBdUkFeSjlKK.png?w=400 400w, /storage/property_images/9O92cEA5jAHQK3Mc9bKXIU6x6fHgiBdUkFeSjlKK.png?w=600 600w, /storage/property_images/9O92cEA5jAHQK3Mc9bKXIU6x6fHgiBdUkFeSjlKK.png?w=800 800w" sizes="(max-width: 600px) 200px,
+                                                (max-width: 768px) 400px,
+                                                (max-width: 992px) 600px,
+                                                (max-width: 1200px) 800px,
+                                                800px" width="250" height="200" class="card-img-top rounded-top" alt="" style="object-fit: cover; height: 200px;">
+                                                                                            <div class="position-absolute bottom-0 start-0 m-2 bg-white text-dark p-1 rounded">
+                                    <span>222.222 €</span>
+                                    <small class="text-decoration-line-through">245.000 €</small>
+                                                                                                                                                                <small class="text-success ms-2">
+                                                <i class="fa-solid fa-arrow-down"></i> 9.3%
+                                            </small>
+                                                                                                            </div>
+                                                                                        <a class="favorite-btn position-absolute top-0 end-0 m-2 btn" href="https://remax.totul.info/login">
+                                    <i class="fa fa-regular fa-heart"></i>
+                                </a>
+                                                    </div>
+                        <div class="d-flex flex-column justify-content-between flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mt-2 px-2">
+                                <p class="card-text text-muted mb-0">Bălți - Centru</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="/storage/MyImages/Ea0ZzUFw2GOLyXpY51px445JVwBVx3Ol9n6vDiI9.png?w=50" class="rounded-circle me-2" alt="" style="width: 30px; height: 30px; object-fit: cover;">
+                                </div>
+                            </div>
+                            <div class="bg-gray-opacity px-2 py-2 mt-2 rounded-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="card-title mb-0">Apartament</small>
+                                    <div class="d-flex">
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-house icon-placeholder"></i> <small>77</small> <small>m²</small>
+                                        </div>
+                                        <div class="me-3">
+                                            <i class="fa-solid fa-bed icon-placeholder"></i> <small><small>N/A</small></small>
+                                        </div>
+                                        <div>
+                                            <i class="fa-solid fa-bath icon-placeholder"></i> <small><small>N/A</small></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+
+
+    </div>
+    </main>
+</div>
+
+<footer class="py-3 my-4" style="height: 100px">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <ul class="nav justify-content-center"></ul>    </ul>
+    <p class="text-center text-muted">© 2024 Company, Inc</p>
+</footer>
+
+    <link rel="preload" as="style" href="https://remax.totul.info/build/assets/lightgallery.DKJbdgNk.css"><link rel="preload" as="style" href="https://remax.totul.info/build/assets/lg-thumbnail.19Niz4eI.css"><link rel="preload" as="style" href="https://remax.totul.info/build/assets/lg-zoom.Bj1BA4qy.css"><link rel="modulepreload" href="https://remax.totul.info/build/assets/properties_welcome.Cjc7dTxl.js"><link rel="modulepreload" href="https://remax.totul.info/build/assets/bootstrap.esm.Bhzy9GB8.js"><link rel="modulepreload" href="https://remax.totul.info/build/assets/jquery.B9oof4Im.js"><link rel="modulepreload" href="https://remax.totul.info/build/assets/property_modal.CCfeC0in.js"><link rel="modulepreload" href="https://remax.totul.info/build/assets/lg-zoom.es5.DeXA2n5r.js"><link rel="stylesheet" href="https://remax.totul.info/build/assets/lightgallery.DKJbdgNk.css"><link rel="stylesheet" href="https://remax.totul.info/build/assets/lg-thumbnail.19Niz4eI.css"><link rel="stylesheet" href="https://remax.totul.info/build/assets/lg-zoom.Bj1BA4qy.css"><script type="module" src="https://remax.totul.info/build/assets/properties_welcome.Cjc7dTxl.js"></script><script type="module" src="https://remax.totul.info/build/assets/property_modal.CCfeC0in.js"></script>    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButton = document.getElementById('dropdownMenuButton');
+            const dropdownMenu = document.querySelector('.dropdown-menu.custom-dropdown');
+            const categorySelect = document.getElementById('categorySelect');
+
+            // Initialize the dropdown button to toggle the dropdown menu
+            dropdownButton.addEventListener('click', function(event) {
+                /*dropdownMenu.classList.toggle('show');*/
+                dropdownButton.setAttribute('aria-expanded', dropdownMenu.classList.contains('show'));
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                    dropdownButton.setAttribute('aria-expanded', false);
+                }
+            });
+
+            // Keep dropdown open when clicking inside
+            dropdownMenu.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+
+            // Reset button functionality
+            document.querySelector('.btn-outline-secondary').addEventListener('click', function() {
+                document.querySelectorAll('.custom-control-input').forEach(function(checkbox) {
+                    checkbox.checked = false;
+                });
+            });
+
+            // Handle category selection change
+            categorySelect.addEventListener('change', function() {
+                const selectedCategory = this.value;
+                document.querySelectorAll('.tab-pane').forEach(function(pane) {
+                    pane.classList.remove('show', 'active');
+                });
+                document.getElementById('tab-pane-' + selectedCategory).classList.add('show', 'active');
+            });
+
+            // Apply button functionality
+            document.querySelector('.btn-primary').addEventListener('click', function() {
+                dropdownMenu.classList.remove('show');
+                dropdownButton.setAttribute('aria-expanded', false);
+            });
+        });
+    </script>
+
+    <script>
+        function initModalMap() {
+            const propertyJson = document.getElementById('property_json')?.value;
+            if (!propertyJson) return;
+            const property = JSON.parse(propertyJson);
+            console.log('Initializing modal map');
+
+            try {
+                const modalMap = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 10,
+                    center: { lat: 0, lng: 0 }, // Initial center, it will be updated
+                    mapId: '22b8785cfe0ecbf2'
+                });
+
+                console.log('Modal map initialized successfully');
+
+                // Create a bounds object
+                const bounds = new google.maps.LatLngBounds();
+
+                // Add marker and extend bounds
+                addMarkerToModalMap(property, modalMap, bounds);
+
+                // Adjust the map to fit all markers
+                modalMap.fitBounds(bounds);
+
+                // Add a zoom level adjustment
+                const listener = google.maps.event.addListener(modalMap, "idle", function() {
+                    if (modalMap.getZoom() > 15) modalMap.setZoom(15); // Adjust this zoom level as needed
+                    google.maps.event.removeListener(listener);
+                });
+
+            } catch (error) {
+                console.error('Error initializing modal map:', error);
+            }
+        }
+
+        function addMarkerToModalMap(property, mapInstance, bounds) {
+            const lat = parseFloat(property.latitude);
+            const lng = parseFloat(property.longitude);
+
+            if (isNaN(lat) || isNaN(lng)) {
+                console.error('Invalid coordinates for property:', property);
+                return;
+            }
+
+            if (!property.city || !property.city.name) {
+                console.error('Missing property data:', property);
+                return;
+            }
+
+            var propertyPosition = { lat: lat, lng: lng };
+            console.log('Adding marker to modal map at:', propertyPosition);
+
+            const propertyMarker = new google.maps.Marker({
+                map: mapInstance,
+                position: propertyPosition,
+                title: property.name || 'Unnamed Property'
+            });
+
+            // Extend bounds with the position of the new marker
+            bounds.extend(propertyPosition);
+        }
+
+    </script>
+
+
+</body></html>
