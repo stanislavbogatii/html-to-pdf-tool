@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { HtmlPdfConvertDto } from './dto';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as mammoth from 'mammoth';
 
 
 @Injectable()
@@ -27,13 +28,16 @@ export class AppService {
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--allow-file-access-from-files', '--enable-local-file-accesses']
     });
+    console.log(landscape)
   
     if (!url.startsWith('https://') && !url.startsWith('http://'))
       url = 'https://' + url
   
     const page = await browser.newPage();
+
   
     await page.setRequestInterception(true);
+    
     page.on('request', (request) => {
       const resourceType = request.resourceType();
       if (
@@ -47,7 +51,7 @@ export class AppService {
       }
     });
   
-    await page.goto(url, { waitUntil: 'domcontentloaded' });
+    await page.goto(url, { waitUntil: 'networkidle2' });
   
     if (containerId) {
       const { headHtml, contentHtml } = await page.evaluate((containerId) => {
@@ -91,6 +95,21 @@ export class AppService {
     return { pdfBuffer };
   }
 
+
+  async convertDocxToPdf(docxBuffer: Buffer): Promise<Buffer> {
+    const { value: html } = await mammoth.convertToHtml({ buffer: docxBuffer });
+    
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+    const page = await browser.newPage();
+    await page.setContent(html);
+    const pdfBuffer = await page.pdf();
+    
+    await browser.close();
+    
+    return pdfBuffer;
+  }
 
 
   async convertHtmlToPdf({

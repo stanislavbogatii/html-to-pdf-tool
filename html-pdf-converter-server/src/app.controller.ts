@@ -36,7 +36,6 @@ export class AppController {
     @Res() res: Response, 
     @Query() htmlPdfConvertDto?: HtmlPdfConvertDto,
   ) {
-    console.log(htmlPdfConvertDto)
     try {
       const { pdfBuffer } = await this.appService.convertHtmlToPdfLightV(htmlPdfConvertDto)
       const title = htmlPdfConvertDto?.title || "converted"
@@ -49,6 +48,24 @@ export class AppController {
     } catch (error) {
       console.error('Error converting HTML to PDF:', error);
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send('Failed to convert HTML to PDF.');
+    }
+  }
+
+  @Post('docx-pdf/convert')
+  @UseInterceptors(FileInterceptor('file'))
+  async convertDocxToPdf(@UploadedFile() file: Express.Multer.File, @Res() res: Response) {
+    if (!file || file.mimetype !== 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+      return res.status(HttpStatus.BAD_REQUEST).send('Invalid file type.');
+    }
+
+    try {
+      const pdfBuffer = await this.appService.convertDocxToPdf(file.buffer);
+
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename="converted.pdf"');
+      res.send(pdfBuffer);
+    } catch (error) {
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(`error ${error}`);
     }
   }
 
